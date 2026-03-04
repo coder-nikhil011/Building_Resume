@@ -1,27 +1,27 @@
-// src/components/resume/Sidebar.jsx
 import React from "react";
-export default function Sidebar() {
+export default function Sidebar({ activeSection, setActiveSection }) {
   const sections = [
-    "Personal Details",
-    "Summary",
-    "Accomplishments",
-    "Employment History",
-    "Education",
-    "Websites & Links",
-    "Skills",
-    "Languages",
-    "References",
+    { id: "personal", label: "Personal Details" },
+    { id: "summary", label: "Summary" },
+    { id: "experience", label: "Experience" },
+    { id: "education", label: "Education" },
+    { id: "skills", label: "Skills" },
   ];
 
   return (
-    <div className="bg-white rounded-xl shadow p-4 space-y-2">
-      <h2 className="font-semibold mb-3">Resume Sections</h2>
-      {sections.map((s) => (
+    <div className="bg-white rounded-lg shadow p-4 space-y-2">
+      {sections.map((sec) => (
         <button
-          key={s}
-          className="w-full text-left px-3 py-2 rounded hover:bg-indigo-50 text-sm"
+          key={sec.id}
+          onClick={() => setActiveSection(sec.id)}
+          className={`w-full text-left px-4 py-2 rounded-md font-medium transition
+            ${
+              activeSection === sec.id
+                ? "bg-blue-600 text-white"
+                : "bg-gray-100 hover:bg-gray-200"
+            }`}
         >
-          {s}
+          {sec.label}
         </button>
       ))}
     </div>

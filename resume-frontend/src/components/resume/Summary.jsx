@@ -1,15 +1,18 @@
 import React from "react";
 export default function Summary({ resume, setResume }) {
   return (
-    <div className="bg-white p-4 rounded-xl shadow">
-      <h3 className="font-semibold mb-2">Professional Summary</h3>
+    <div className="bg-white p-4 rounded-lg shadow">
+      <h2 className="text-xl font-semibold mb-2">Professional Summary</h2>
+
       <textarea
-        className="w-full border rounded p-2"
-        rows="4"
-        placeholder="Write a short professional summary..."
-        onChange={(e) => setResume({ ...resume, summary: e.target.value })}
+        rows="6"
+        value={resume.summary}
+        onChange={(e) =>
+          setResume({ ...resume, summary: e.target.value })
+        }
+        placeholder="Write your professional summary..."
+        className="w-full border rounded-md p-2"
       />
-      <button className="mt-2 text-indigo-500 text-sm">✨ Ask AI writer</button>
     </div>
   );
 }
