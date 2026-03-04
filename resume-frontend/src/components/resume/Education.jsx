@@ -1,9 +1,19 @@
 import React from "react";
+
+const emptyEdu = {
+  school: "",
+  degree: "",
+  startDate: "",
+  endDate: "",
+  city: "",
+  description: "",
+};
+
 export default function Education({ resume, setResume }) {
   const add = () =>
     setResume({
       ...resume,
-      education: [...resume.education, { school: "" }],
+      education: [...resume.education, emptyEdu],
     });
 
   return (

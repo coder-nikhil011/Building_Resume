@@ -1,27 +1,34 @@
 import React from "react";
-export default function Sidebar({ activeSection, setActiveSection }) {
-  const sections = [
-    { id: "personal", label: "Personal Details" },
-    { id: "summary", label: "Summary" },
-    { id: "experience", label: "Experience" },
-    { id: "education", label: "Education" },
-    { id: "skills", label: "Skills" },
-  ];
 
+const sections = [
+  { key: "personal", label: "Personal Details" },
+  { key: "summary", label: "Summary" },
+  { key: "experience", label: "Experience" },
+  { key: "education", label: "Education" },
+  { key: "skills", label: "Skills" },
+  { key: "links", label: "Links" },
+  { key: "courses", label: "Courses" },
+  { key: "languages", label: "Languages" },
+  { key: "hobbies", label: "Hobbies" },
+  { key: "activities", label: "Activities" },
+  { key: "internships", label: "Internships" },
+  { key: "references", label: "References" },
+];
+
+export default function Sidebar({ activeSection, setActiveSection }) {
   return (
-    <div className="bg-white rounded-lg shadow p-4 space-y-2">
-      {sections.map((sec) => (
+    <div className="bg-white rounded-xl shadow p-3 space-y-1">
+      {sections.map((s) => (
         <button
-          key={sec.id}
-          onClick={() => setActiveSection(sec.id)}
-          className={`w-full text-left px-4 py-2 rounded-md font-medium transition
-            ${
-              activeSection === sec.id
-                ? "bg-blue-600 text-white"
-                : "bg-gray-100 hover:bg-gray-200"
-            }`}
+          key={s.key}
+          onClick={() => setActiveSection(s.key)}
+          className={`w-full text-left px-3 py-2 rounded text-sm ${
+            activeSection === s.key
+              ? "bg-indigo-100 text-indigo-600"
+              : "hover:bg-gray-100"
+          }`}
         >
-          {sec.label}
+          {s.label}
         </button>
       ))}
     </div>
