@@ -18,6 +18,7 @@ import pureats from "../../../assets/templates/pureats.png";
 import sidebar from "../../../assets/templates/sidebar.png";
 import stylish from "../../../assets/templates/stylish.png";
 import timeline from "../../../assets/templates/timeline.png";
+import React from "react";
 
 const templates = [
   { name: "ats", image: ats },
