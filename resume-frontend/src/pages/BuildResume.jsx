@@ -1,6 +1,6 @@
 // src/pages/BuildResume.jsx
 import React from "react";
-import ResumeBuilder from "../components/resume/ResumeBuilder";
+import ResumeBuilder from "../components/resume/builder/ResumeBuilder";
 
 export default function BuildResume() {
   return (
