@@ -1,54 +1,41 @@
 import React from "react";
 
-import ClassicTemplate from "../../templates/Classic";
-import ModernTemplate from "../../templates/Modern";
-import MinimalTemplate from "../../templates/Minimal";
-import ProfessionalTemplate from "../../templates/Professional";
-import CreativeTemplate from "../../templates/Creative";
-import ExecutiveTemplate from "../../templates/Executive";
-import ElegantTemplate from "../../templates/Elegant";
-import CompactTemplate from "../../templates/Compact";
-import CleanTemplate from "../../templates/Clean";
-import CorporateTemplate from "../../templates/Corporate";
-import StylishTemplate from "../../templates/Stylish";
-import GradientTemplate from "../../templates/Gradient";
-import BoldTemplate from "../../templates/Bold";
-import TimelineTemplate from "../../templates/Timeline";
-import SidebarTemplate from "../../templates/Sidebar";
-import PortfolioTemplate from "../../templates/Portfolio";
-import DesignerTemplate from "../../templates/Designer";
-import ClearTemplate from "../../templates/Clear";
-import ManagerialTemplate from "../../templates/Managerial";
-import SimpleTemplate from "../../templates/Simple";
-import SpecialistTemplate from "../../templates/Specialist";
-import TwoColumnTemplate from "../../templates/TwoColumn";
+import Classic from "../../templates/Classic";
+import Modern from "../../templates/Modern";
+import Minimal from "../../templates/Minimal";
+import Professional from "../../templates/Professional";
+import Creative from "../../templates/Creative";
+import { Executive } from "../../templates/Executive";
+import Elegant from "../../templates/Elegant";
+import { Compact, Clean, Corporate, Stylish, Gradient, Bold } from "../../templates/MultiTemplates1";
+import { Timeline, Sidebar, Portfolio, Designer, Clear, Managerial, Simple, Specialist, TwoColumn } from "../../templates/MultiTemplates2";
 
 const templateMap = {
-  classic:      ClassicTemplate,
-  modern:       ModernTemplate,
-  minimal:      MinimalTemplate,
-  professional: ProfessionalTemplate,
-  creative:     CreativeTemplate,
-  executive:    ExecutiveTemplate,
-  elegant:      ElegantTemplate,
-  compact:      CompactTemplate,
-  clean:        CleanTemplate,
-  corporate:    CorporateTemplate,
-  stylish:      StylishTemplate,
-  gradient:     GradientTemplate,
-  bold:         BoldTemplate,
-  timeline:     TimelineTemplate,
-  sidebar:      SidebarTemplate,
-  portfolio:    PortfolioTemplate,
-  designer:     DesignerTemplate,
-  clear:        ClearTemplate,
-  managerial:   ManagerialTemplate,
-  simple:       SimpleTemplate,
-  specialist:   SpecialistTemplate,
-  twocolumn:    TwoColumnTemplate,
+  classic:      Classic,
+  modern:       Modern,
+  minimal:      Minimal,
+  professional: Professional,
+  creative:     Creative,
+  executive:    Executive,
+  elegant:      Elegant,
+  compact:      Compact,
+  clean:        Clean,
+  corporate:    Corporate,
+  stylish:      Stylish,
+  gradient:     Gradient,
+  bold:         Bold,
+  timeline:     Timeline,
+  sidebar:      Sidebar,
+  portfolio:    Portfolio,
+  designer:     Designer,
+  clear:        Clear,
+  managerial:   Managerial,
+  simple:       Simple,
+  specialist:   Specialist,
+  twocolumn:    TwoColumn,
 };
 
 export default function ResumePreview({ resume, activeTemplate }) {
-  const TemplateComponent = templateMap[activeTemplate?.toLowerCase()] || ClassicTemplate;
+  const TemplateComponent = templateMap[activeTemplate?.toLowerCase()] || Classic;
   return <TemplateComponent resume={resume} />;
 }

@@ -1,133 +1,120 @@
 import React from "react";
 import { useResume } from "../../../context/ResumeContext";
 
-// ─── Import all template images ──────────────────────────
-import classic from "../../../assets/templates/classic.png";
-import modern from "../../../assets/templates/modern.png";
-import minimal from "../../../assets/templates/minimal.png";
-import professional from "../../../assets/templates/professional.png";
-import creative from "../../../assets/templates/creative.png";
-import executive from "../../../assets/templates/executive.png";
-import elegant from "../../../assets/templates/elegant.png";
-import compact from "../../../assets/templates/compact.png";
-import clean from "../../../assets/templates/clean.png";
-import corporate from "../../../assets/templates/corporate.png";
-import stylish from "../../../assets/templates/stylish.png";
-import gradient from "../../../assets/templates/gradient.png";
-import bold from "../../../assets/templates/bold.png";
-import timeline from "../../../assets/templates/timeline.png";
-import sidebar from "../../../assets/templates/sidebar.png";
-import portfolio from "../../../assets/templates/portfolio.png";
-import designer from "../../../assets/templates/designer.png";
-import clear from "../../../assets/templates/clear.png";
-import managerial from "../../../assets/templates/managerial.png";
-import simple from "../../../assets/templates/simple.png";
-import specialist from "../../../assets/templates/specialist.png";
-import twocolumn from "../../../assets/templates/twocolumn.png";
+import Classic from "../../templates/Classic";
+import Modern from "../../templates/Modern";
+import Minimal from "../../templates/Minimal";
+import Professional from "../../templates/Professional";
+import Creative from "../../templates/Creative";
+import { Executive } from "../../templates/Executive";
+import Elegant from "../../templates/Elegant";
+import { Compact, Clean, Corporate, Stylish, Gradient, Bold } from "../../templates/MultiTemplates1";
+import { Timeline, Sidebar, Portfolio, Designer, Clear, Managerial, Simple, Specialist, TwoColumn } from "../../templates/MultiTemplates2";
 
 const TEMPLATES = [
-  { id: "classic",      name: "Classic",      image: classic,      tag: "Popular" },
-  { id: "modern",       name: "Modern",       image: modern,       tag: "Popular" },
-  { id: "minimal",      name: "Minimal",      image: minimal,      tag: null },
-  { id: "professional", name: "Professional", image: professional, tag: "Popular" },
-  { id: "creative",     name: "Creative",     image: creative,     tag: null },
-  { id: "executive",    name: "Executive",    image: executive,    tag: null },
-  { id: "elegant",      name: "Elegant",      image: elegant,      tag: null },
-  { id: "compact",      name: "Compact",      image: compact,      tag: null },
-  { id: "clean",        name: "Clean",        image: clean,        tag: null },
-  { id: "corporate",    name: "Corporate",    image: corporate,    tag: null },
-  { id: "stylish",      name: "Stylish",      image: stylish,      tag: null },
-  { id: "gradient",     name: "Gradient",     image: gradient,     tag: "New" },
-  { id: "bold",         name: "Bold",         image: bold,         tag: null },
-  { id: "timeline",     name: "Timeline",     image: timeline,     tag: null },
-  { id: "sidebar",      name: "Sidebar",      image: sidebar,      tag: null },
-  { id: "portfolio",    name: "Portfolio",    image: portfolio,    tag: null },
-  { id: "designer",     name: "Designer",     image: designer,     tag: null },
-  { id: "clear",        name: "Clear",        image: clear,        tag: null },
-  { id: "managerial",   name: "Managerial",   image: managerial,   tag: null },
-  { id: "simple",       name: "Simple",       image: simple,       tag: null },
-  { id: "specialist",   name: "Specialist",   image: specialist,   tag: null },
-  { id: "twocolumn",    name: "Two Column",   image: twocolumn,    tag: null },
+  { id: "classic",      name: "Classic",      Component: Classic,      color: "#1a1a1a" },
+  { id: "modern",       name: "Modern",       Component: Modern,       color: "#2563eb" },
+  { id: "minimal",      name: "Minimal",      Component: Minimal,      color: "#6b7280" },
+  { id: "professional", name: "Professional", Component: Professional, color: "#1e293b" },
+  { id: "creative",     name: "Creative",     Component: Creative,     color: "#7c3aed" },
+  { id: "executive",    name: "Executive",    Component: Executive,    color: "#111827" },
+  { id: "elegant",      name: "Elegant",      Component: Elegant,      color: "#d4a853" },
+  { id: "compact",      name: "Compact",      Component: Compact,      color: "#374151" },
+  { id: "clean",        name: "Clean",        Component: Clean,        color: "#10b981" },
+  { id: "corporate",    name: "Corporate",    Component: Corporate,    color: "#1e3a5f" },
+  { id: "stylish",      name: "Stylish",      Component: Stylish,      color: "#be185d" },
+  { id: "gradient",     name: "Gradient",     Component: Gradient,     color: "#6366f1" },
+  { id: "bold",         name: "Bold",         Component: Bold,         color: "#000000" },
+  { id: "timeline",     name: "Timeline",     Component: Timeline,     color: "#0ea5e9" },
+  { id: "sidebar",      name: "Sidebar",      Component: Sidebar,      color: "#f97316" },
+  { id: "portfolio",    name: "Portfolio",    Component: Portfolio,    color: "#0f172a" },
+  { id: "designer",     name: "Designer",     Component: Designer,     color: "#6366f1" },
+  { id: "clear",        name: "Clear",        Component: Clear,        color: "#6b7280" },
+  { id: "managerial",   name: "Managerial",   Component: Managerial,   color: "#374151" },
+  { id: "simple",       name: "Simple",       Component: Simple,       color: "#111827" },
+  { id: "specialist",   name: "Specialist",   Component: Specialist,   color: "#065f46" },
+  { id: "twocolumn",    name: "Two Column",   Component: TwoColumn,    color: "#4338ca" },
 ];
 
+const DEMO_RESUME = {
+  personal: { firstName: "Alex", lastName: "Johnson", email: "alex@email.com", phone: "+1 555 0100", city: "New York", country: "USA", jobTitle: "Senior Designer" },
+  summary: "Creative professional with 5+ years of experience building beautiful products.",
+  experience: [
+    { position: "Senior Designer", company: "Acme Corp", startDate: "2021", endDate: "Present", description: "Led product design across 3 major platforms." },
+    { position: "UI Designer", company: "Studio X", startDate: "2019", endDate: "2021", description: "Designed user interfaces for mobile apps." },
+  ],
+  education: [{ degree: "B.Des Visual Communication", school: "Design Institute", startDate: "2015", endDate: "2019" }],
+  skills: ["Figma", "React", "CSS", "Branding", "UX Research"],
+  languages: [{ name: "English", level: "Native" }, { name: "Spanish", level: "B2" }],
+  links: [], courses: [], hobbies: "", activities: [], internships: [], references: [],
+};
+
 export default function TemplateGallery() {
-  const { activeTemplate, setActiveTemplate } = useResume();
+  const { activeTemplate, setActiveTemplate, resume } = useResume();
+
+  const previewResume = resume?.personal?.firstName ? resume : DEMO_RESUME;
 
   return (
-    <div className="h-full flex flex-col bg-gray-50">
+    <div style={{ height: "100%", display: "flex", flexDirection: "column", background: "#f8f9fa" }}>
       {/* Header */}
-      <div className="px-4 py-3 border-b border-gray-200 bg-white flex-shrink-0">
-        <h3 className="text-sm font-semibold text-gray-800">Templates</h3>
-        <p className="text-xs text-gray-400 mt-0.5">{TEMPLATES.length} designs available</p>
+      <div style={{ padding: "12px 14px", borderBottom: "1px solid #e5e7eb", background: "#fff", flexShrink: 0 }}>
+        <p style={{ fontSize: "12px", fontWeight: "600", color: "#374151", margin: 0 }}>Templates</p>
+        <p style={{ fontSize: "10px", color: "#9ca3af", margin: "2px 0 0" }}>{TEMPLATES.length} designs</p>
       </div>
 
-      {/* Scrollable list */}
-      <div className="overflow-y-auto flex-1 px-3 py-3 space-y-2">
-        {TEMPLATES.map((t) => {
-          const isActive = activeTemplate === t.id;
+      {/* Scrollable gallery */}
+      <div style={{ flex: 1, overflowY: "auto", padding: "10px", display: "flex", flexDirection: "column", gap: "10px" }}>
+        {TEMPLATES.map(({ id, name, Component, color }) => {
+          const isActive = activeTemplate === id;
           return (
             <div
-              key={t.id}
-              onClick={() => setActiveTemplate(t.id)}
-              className={`group relative cursor-pointer rounded-xl overflow-hidden border-2 transition-all duration-200 ${
-                isActive
-                  ? "border-indigo-500 shadow-md shadow-indigo-100"
-                  : "border-transparent hover:border-indigo-200 hover:shadow-sm"
-              }`}
+              key={id}
+              onClick={() => setActiveTemplate(id)}
+              style={{
+                cursor: "pointer",
+                borderRadius: "8px",
+                overflow: "hidden",
+                border: isActive ? `2px solid ${color}` : "2px solid transparent",
+                boxShadow: isActive ? `0 0 0 1px ${color}20, 0 4px 12px ${color}20` : "0 1px 4px rgba(0,0,0,0.08)",
+                transition: "all 0.2s ease",
+                background: "#fff",
+              }}
             >
-              {/* Template image */}
-              <div className="relative bg-white">
-                <img
-                  src={t.image}
-                  alt={t.name}
-                  className="w-full object-top object-cover"
-                  style={{ height: "260px" }}
-                />
+              {/* Live preview — scaled down */}
+              <div style={{ position: "relative", overflow: "hidden", height: "220px", background: "#f3f4f6" }}>
+                <div style={{
+                  transform: "scale(0.265)",
+                  transformOrigin: "top left",
+                  width: "794px",
+                  pointerEvents: "none",
+                  userSelect: "none",
+                }}>
+                  <Component resume={previewResume} />
+                </div>
 
                 {/* Selected overlay */}
                 {isActive && (
-                  <div className="absolute inset-0 bg-indigo-600/10 flex items-center justify-center">
-                    <div className="bg-indigo-600 text-white rounded-full w-8 h-8 flex items-center justify-center shadow-lg">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                  <div style={{ position: "absolute", inset: 0, background: `${color}18`, display: "flex", alignItems: "flex-start", justifyContent: "flex-end", padding: "8px" }}>
+                    <div style={{ background: color, borderRadius: "50%", width: "22px", height: "22px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3">
                         <path d="M20 6 9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </div>
                   </div>
                 )}
-
-                {/* Hover overlay */}
-                {!isActive && (
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-end justify-center pb-3 opacity-0 group-hover:opacity-100">
-                    <span className="bg-white text-indigo-600 text-xs font-semibold px-3 py-1.5 rounded-full shadow border border-indigo-100">
-                      Use this template
-                    </span>
-                  </div>
-                )}
-
-                {/* Tag badge */}
-                {t.tag && (
-                  <div className={`absolute top-2 left-2 text-xs font-semibold px-2 py-0.5 rounded-full ${
-                    t.tag === "New"
-                      ? "bg-green-100 text-green-700"
-                      : "bg-indigo-100 text-indigo-700"
-                  }`}>
-                    {t.tag}
-                  </div>
-                )}
               </div>
 
-              {/* Name row */}
-              <div className={`px-3 py-2 flex items-center justify-between ${
-                isActive ? "bg-indigo-50" : "bg-white"
-              }`}>
-                <span className={`text-sm font-medium ${
-                  isActive ? "text-indigo-700" : "text-gray-700"
-                }`}>
-                  {t.name}
-                </span>
-                {isActive && (
-                  <span className="text-xs text-indigo-500 font-medium">Selected</span>
-                )}
+              {/* Name bar */}
+              <div style={{
+                padding: "7px 10px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                background: isActive ? `${color}10` : "#fff",
+                borderTop: `1px solid ${isActive ? color + "30" : "#f3f4f6"}`,
+              }}>
+                <span style={{ fontSize: "11px", fontWeight: "600", color: isActive ? color : "#374151" }}>{name}</span>
+                {isActive && <span style={{ fontSize: "9px", color: color, fontWeight: "600", textTransform: "uppercase", letterSpacing: "0.5px" }}>Active</span>}
               </div>
             </div>
           );
