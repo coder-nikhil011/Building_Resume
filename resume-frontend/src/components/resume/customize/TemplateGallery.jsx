@@ -1,74 +1,103 @@
 import React from "react";
 import { useResume } from "../../../context/ResumeContext";
 
-// Original templates
 import Classic from "../../templates/Classic";
 import Modern from "../../templates/Modern";
 import Minimal from "../../templates/Minimal";
 import Professional from "../../templates/Professional";
 import Creative from "../../templates/Creative";
-import { Executive } from "../../templates/Executive";
+import Executive from "../../templates/Executive";
 import Elegant from "../../templates/Elegant";
-import { Compact, Clean, Corporate, Stylish, Gradient, Bold } from "../../templates/MultiTemplates1";
-import { Timeline, Sidebar, Portfolio, Designer, Clear, Managerial, Simple, Specialist, TwoColumn } from "../../templates/MultiTemplates2";
-
-// New templates
-import { Fresher, Dark, Light, Startup, Tech, Academic, PrimeATS, ATSBasic, ATSPro } from "../../templates/RemainingTemplates";
+import Bold from "../../templates/Bold";
+import Clean from "../../templates/Clean";
+import Clear from "../../templates/Clear";
+import Compact from "../../templates/Compact";
+import Corporate from "../../templates/Corporate";
+import Designer from "../../templates/Designer";
+import Gradient from "../../templates/Gradient";
+import Managerial from "../../templates/Managerial";
+import Portfolio from "../../templates/Portfolio";
+import Sidebar from "../../templates/Sidebar";
+import Simple from "../../templates/Simple";
+import Specialist from "../../templates/Specialist";
+import Stylish from "../../templates/Stylish";
+import Timeline from "../../templates/Timeline";
+import TwoColumn from "../../templates/TwoColumn";
+import Fresher from "../../templates/Fresher";
+import Dark from "../../templates/Dark";
+import Light from "../../templates/Light";
+import Startup from "../../templates/Startup";
+import Tech from "../../templates/Tech";
+import Academic from "../../templates/Academic";
+import PrimeATS from "../../templates/PrimeATS";
+import ATSBasic from "../../templates/ATSBasic";
+import ATSPro from "../../templates/ATSPro";
+import ATSModern from "../../templates/ATSModern";
 
 const TEMPLATES = [
-  { id: "classic",      name: "Classic",      Component: Classic,      color: "#1a1a1a", tag: "Popular" },
-  { id: "modern",       name: "Modern",       Component: Modern,       color: "#2563eb", tag: "Popular" },
-  { id: "minimal",      name: "Minimal",      Component: Minimal,      color: "#6b7280" },
-  { id: "professional", name: "Professional", Component: Professional, color: "#1e293b", tag: "Popular" },
-  { id: "creative",     name: "Creative",     Component: Creative,     color: "#7c3aed" },
-  { id: "executive",    name: "Executive",    Component: Executive,    color: "#111827" },
-  { id: "elegant",      name: "Elegant",      Component: Elegant,      color: "#d4a853" },
-  { id: "compact",      name: "Compact",      Component: Compact,      color: "#374151" },
-  { id: "clean",        name: "Clean",        Component: Clean,        color: "#10b981" },
-  { id: "corporate",    name: "Corporate",    Component: Corporate,    color: "#1e3a5f" },
-  { id: "stylish",      name: "Stylish",      Component: Stylish,      color: "#be185d" },
-  { id: "gradient",     name: "Gradient",     Component: Gradient,     color: "#6366f1", tag: "New" },
-  { id: "bold",         name: "Bold",         Component: Bold,         color: "#000000" },
-  { id: "timeline",     name: "Timeline",     Component: Timeline,     color: "#0ea5e9" },
-  { id: "sidebar",      name: "Sidebar",      Component: Sidebar,      color: "#f97316" },
-  { id: "portfolio",    name: "Portfolio",    Component: Portfolio,    color: "#0f172a" },
-  { id: "designer",     name: "Designer",     Component: Designer,     color: "#6366f1" },
-  { id: "clear",        name: "Clear",        Component: Clear,        color: "#6b7280" },
-  { id: "managerial",   name: "Managerial",   Component: Managerial,   color: "#374151" },
-  { id: "simple",       name: "Simple",       Component: Simple,       color: "#111827" },
-  { id: "specialist",   name: "Specialist",   Component: Specialist,   color: "#065f46" },
-  { id: "twocolumn",    name: "Two Column",   Component: TwoColumn,    color: "#4338ca" },
-  { id: "fresher",      name: "Fresher",      Component: Fresher,      color: "#4f46e5", tag: "New" },
-  { id: "dark",         name: "Dark",         Component: Dark,         color: "#818cf8" },
-  { id: "light",        name: "Light",        Component: Light,        color: "#16a34a" },
-  { id: "startup",      name: "Startup",      Component: Startup,      color: "#f59e0b" },
-  { id: "tech",         name: "Tech",         Component: Tech,         color: "#22c55e" },
-  { id: "academic",     name: "Academic",     Component: Academic,     color: "#374151" },
-  { id: "primeats",     name: "Prime ATS",    Component: PrimeATS,     color: "#f97316", tag: "ATS" },
-  { id: "atsbasic",     name: "ATS Basic",    Component: ATSBasic,     color: "#111827", tag: "ATS" },
-  { id: "atspro",       name: "ATS Pro",      Component: ATSPro,       color: "#1d4ed8", tag: "ATS" },
+  { id: "classic",      name: "Classic",      Component: Classic,      color: "#1a1a1a",  tag: "Popular" },
+  { id: "modern",       name: "Modern",       Component: Modern,       color: "#2563eb",  tag: "Popular" },
+  { id: "minimal",      name: "Minimal",      Component: Minimal,      color: "#6b7280",  tag: null },
+  { id: "professional", name: "Professional", Component: Professional, color: "#1e293b",  tag: "Popular" },
+  { id: "creative",     name: "Creative",     Component: Creative,     color: "#7c3aed",  tag: null },
+  { id: "executive",    name: "Executive",    Component: Executive,    color: "#111827",  tag: null },
+  { id: "elegant",      name: "Elegant",      Component: Elegant,      color: "#d4a853",  tag: null },
+  { id: "bold",         name: "Bold",         Component: Bold,         color: "#000000",  tag: null },
+  { id: "clean",        name: "Clean",        Component: Clean,        color: "#10b981",  tag: null },
+  { id: "clear",        name: "Clear",        Component: Clear,        color: "#6b7280",  tag: null },
+  { id: "compact",      name: "Compact",      Component: Compact,      color: "#374151",  tag: null },
+  { id: "corporate",    name: "Corporate",    Component: Corporate,    color: "#1e3a5f",  tag: null },
+  { id: "designer",     name: "Designer",     Component: Designer,     color: "#6366f1",  tag: null },
+  { id: "gradient",     name: "Gradient",     Component: Gradient,     color: "#6366f1",  tag: "New" },
+  { id: "managerial",   name: "Managerial",   Component: Managerial,   color: "#374151",  tag: null },
+  { id: "portfolio",    name: "Portfolio",    Component: Portfolio,    color: "#0f172a",  tag: null },
+  { id: "sidebar",      name: "Sidebar",      Component: Sidebar,      color: "#f97316",  tag: null },
+  { id: "simple",       name: "Simple",       Component: Simple,       color: "#111827",  tag: null },
+  { id: "specialist",   name: "Specialist",   Component: Specialist,   color: "#065f46",  tag: null },
+  { id: "stylish",      name: "Stylish",      Component: Stylish,      color: "#be185d",  tag: null },
+  { id: "timeline",     name: "Timeline",     Component: Timeline,     color: "#0ea5e9",  tag: null },
+  { id: "twocolumn",    name: "Two Column",   Component: TwoColumn,    color: "#4338ca",  tag: null },
+  { id: "fresher",      name: "Fresher",      Component: Fresher,      color: "#4f46e5",  tag: "New" },
+  { id: "dark",         name: "Dark",         Component: Dark,         color: "#818cf8",  tag: null },
+  { id: "light",        name: "Light",        Component: Light,        color: "#16a34a",  tag: null },
+  { id: "startup",      name: "Startup",      Component: Startup,      color: "#f59e0b",  tag: null },
+  { id: "tech",         name: "Tech",         Component: Tech,         color: "#22c55e",  tag: null },
+  { id: "academic",     name: "Academic",     Component: Academic,     color: "#374151",  tag: null },
+  { id: "primeats",     name: "Prime ATS",    Component: PrimeATS,     color: "#ea580c",  tag: "ATS" },
+  { id: "atsbasic",     name: "ATS Basic",    Component: ATSBasic,     color: "#111827",  tag: "ATS" },
+  { id: "atspro",       name: "ATS Pro",      Component: ATSPro,       color: "#1d4ed8",  tag: "ATS" },
+  { id: "atsmodern",    name: "ATS Modern",   Component: ATSModern,    color: "#0f766e",  tag: "ATS" },
 ];
 
 const DEMO_RESUME = {
-  personal: { firstName: "Alex", lastName: "Johnson", email: "alex@email.com", phone: "+1 555 0100", city: "New York", country: "USA", jobTitle: "Senior Designer" },
-  summary: "Creative professional with 5+ years of experience building beautiful products and solving real problems.",
+  personal: {
+    firstName: "Alex", lastName: "Johnson",
+    email: "alex@email.com", phone: "+1 555 0100",
+    city: "New York", country: "USA",
+    jobTitle: "Senior Designer",
+  },
+  summary: "Creative professional with 5+ years of experience building beautiful products.",
   experience: [
-    { position: "Senior Designer", company: "Acme Corp", startDate: "2021", endDate: "Present", description: "Led product design across 3 major platforms serving 1M+ users." },
-    { position: "UI Designer", company: "Studio X", startDate: "2019", endDate: "2021", description: "Designed user interfaces for mobile and web applications." },
+    { position: "Senior Designer", company: "Acme Corp", startDate: "2021", endDate: "Present", description: "Led product design across 3 major platforms." },
+    { position: "UI Designer", company: "Studio X", startDate: "2019", endDate: "2021", description: "Designed interfaces for mobile apps." },
   ],
-  education: [{ degree: "B.Des Visual Communication", school: "Design Institute", startDate: "2015", endDate: "2019" }],
+  education: [
+    { degree: "B.Des Visual Communication", school: "Design Institute", startDate: "2015", endDate: "2019" },
+  ],
   skills: ["Figma", "React", "CSS", "Branding", "UX Research"],
   languages: [{ name: "English", level: "Native" }, { name: "Spanish", level: "B2" }],
-  courses: [{ name: "Advanced UX Design", institution: "Coursera" }],
-  links: [], hobbies: "Photography, hiking", activities: ["Design mentor", "Open source contributor"], internships: [], references: [],
+  courses: [{ name: "Advanced UX", institution: "Coursera" }],
+  links: [], hobbies: "Photography", activities: [], internships: [], references: [],
 };
 
 export default function TemplateGallery() {
   const { activeTemplate, setActiveTemplate, resume } = useResume();
+
   const previewResume = resume?.personal?.firstName ? resume : DEMO_RESUME;
 
   return (
     <div style={{ height: "100%", display: "flex", flexDirection: "column", background: "#f8f9fa" }}>
+
       {/* Header */}
       <div style={{ padding: "12px 14px", borderBottom: "1px solid #e5e7eb", background: "#fff", flexShrink: 0 }}>
         <p style={{ fontSize: "12px", fontWeight: "600", color: "#374151", margin: 0 }}>Templates</p>
@@ -88,7 +117,9 @@ export default function TemplateGallery() {
                 borderRadius: "8px",
                 overflow: "hidden",
                 border: isActive ? `2px solid ${color}` : "2px solid transparent",
-                boxShadow: isActive ? `0 0 0 1px ${color}30, 0 4px 12px ${color}20` : "0 1px 4px rgba(0,0,0,0.08)",
+                boxShadow: isActive
+                  ? `0 0 0 1px ${color}30, 0 4px 12px ${color}20`
+                  : "0 1px 4px rgba(0,0,0,0.08)",
                 transition: "all 0.15s ease",
                 background: "#fff",
               }}
@@ -138,7 +169,9 @@ export default function TemplateGallery() {
                 background: isActive ? `${color}12` : "#fff",
                 borderTop: `1px solid ${isActive ? color + "30" : "#f3f4f6"}`,
               }}>
-                <span style={{ fontSize: "11px", fontWeight: "600", color: isActive ? color : "#374151" }}>{name}</span>
+                <span style={{ fontSize: "11px", fontWeight: "600", color: isActive ? color : "#374151" }}>
+                  {name}
+                </span>
                 {isActive
                   ? <span style={{ fontSize: "9px", color: color, fontWeight: "700", textTransform: "uppercase" }}>Active</span>
                   : tag && <span style={{ fontSize: "9px", color: "#9ca3af" }}>{tag}</span>

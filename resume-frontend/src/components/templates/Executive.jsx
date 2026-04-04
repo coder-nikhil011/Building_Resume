@@ -1,7 +1,7 @@
 // Executive.jsx
 import React from "react";
 
-export function Executive({ resume }) {
+export default function Executive({ resume }) {
   const { personal = {}, summary = "", experience = [], education = [], skills = [] } = resume;
   return (
     <div style={{ fontFamily: "Georgia, serif", background: "#fff", width: "794px", minHeight: "1123px", boxSizing: "border-box" }}>
