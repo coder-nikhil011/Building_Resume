@@ -14,7 +14,6 @@ const sections = [
   { key: "internships", label: "Internships" },
   { key: "references", label: "References" },
 ];
-
 export default function Sidebar({ activeSection, setActiveSection }) {
   return (
     <div className="bg-white rounded-xl shadow p-3 space-y-1">
