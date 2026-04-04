@@ -29,6 +29,15 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handler = (e) => {
+      if (!e.target.closest("#user-dropdown")) setDropdownOpen(false);
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
   const handleLogout = () => {
     logout();
     setDropdownOpen(false);
@@ -36,34 +45,35 @@ export default function Navbar() {
   };
 
   const navLinkClass = ({ isActive }) =>
-    `relative text-sm font-medium transition-all duration-200 px-1 py-0.5 ${isActive
-      ? "text-indigo-600"
-      : "text-gray-600 hover:text-gray-900"
-    } after:absolute after:bottom-0 after:left-0 after:h-0.5 after:rounded-full after:bg-indigo-500 after:transition-all after:duration-300 ${isActive ? "after:w-full" : "after:w-0 hover:after:w-full"}`;
+    `relative text-sm font-medium transition-all duration-200 px-1 py-0.5 ${
+      isActive ? "text-indigo-600" : "text-gray-600 hover:text-gray-900"
+    } after:absolute after:bottom-0 after:left-0 after:h-0.5 after:rounded-full after:bg-indigo-500 after:transition-all after:duration-300 ${
+      isActive ? "after:w-full" : "after:w-0 hover:after:w-full"
+    }`;
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100" : "bg-white/80 backdrop-blur-sm"}`}>
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100" : "bg-white/80 backdrop-blur-sm"
+      }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Logo />
 
-            {/* Desktop nav */}
-            <div className="hidden md:flex items-center gap-8">
+            {/* Desktop nav — always visible links */}
+            <div className="hidden md:flex items-center gap-7">
               <NavLink to="/" end className={navLinkClass}>Home</NavLink>
+              <NavLink to="/build" className={navLinkClass}>Build Resume</NavLink>
+              <NavLink to="/analyze" className={navLinkClass}>Analyze Resume</NavLink>
               {isAuthenticated && (
-                <>
-                  <NavLink to="/dashboard" className={navLinkClass}>Dashboard</NavLink>
-                  <NavLink to="/build" className={navLinkClass}>Build Resume</NavLink>
-                  <NavLink to="/analyze" className={navLinkClass}>Analyze</NavLink>
-                </>
+                <NavLink to="/dashboard" className={navLinkClass}>Dashboard</NavLink>
               )}
             </div>
 
             {/* Auth section */}
             <div className="hidden md:flex items-center gap-3">
               {isAuthenticated ? (
-                <div className="relative">
+                <div className="relative" id="user-dropdown">
                   <button
                     onClick={() => setDropdownOpen(!dropdownOpen)}
                     className="flex items-center gap-2.5 pl-2 pr-3 py-1.5 rounded-xl hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-200"
@@ -72,15 +82,16 @@ export default function Navbar() {
                       {user?.name?.charAt(0).toUpperCase() || "U"}
                     </div>
                     <span className="text-sm font-medium text-gray-700">{user?.name?.split(" ")[0]}</span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={`text-gray-400 transition-transform ${dropdownOpen ? "rotate-180" : ""}`}>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+                      className={`text-gray-400 transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""}`}>
                       <path d="m6 9 6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </button>
 
                   {dropdownOpen && (
-                    <div className="absolute right-0 mt-2 w-52 bg-white rounded-2xl shadow-xl border border-gray-100 py-2 z-50 animate-in">
+                    <div className="absolute right-0 mt-2 w-52 bg-white rounded-2xl shadow-xl border border-gray-100 py-2 z-50">
                       <div className="px-4 py-3 border-b border-gray-50">
-                        <p className="text-xs text-gray-500">Signed in as</p>
+                        <p className="text-xs text-gray-400">Signed in as</p>
                         <p className="text-sm font-semibold text-gray-800 truncate">{user?.email || user?.name}</p>
                       </div>
                       <Link to="/dashboard" onClick={() => setDropdownOpen(false)} className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">
@@ -90,6 +101,10 @@ export default function Navbar() {
                       <Link to="/build" onClick={() => setDropdownOpen(false)} className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" strokeLinecap="round" /><path d="M14 2v6h6" strokeLinecap="round" /></svg>
                         Build Resume
+                      </Link>
+                      <Link to="/pricing" onClick={() => setDropdownOpen(false)} className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
+                        Upgrade Plan
                       </Link>
                       <div className="border-t border-gray-100 mt-1 pt-1">
                         <button onClick={handleLogout} className="flex items-center gap-2.5 w-full px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 transition-colors">
@@ -114,11 +129,12 @@ export default function Navbar() {
 
             {/* Mobile menu button */}
             <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden p-2 rounded-xl hover:bg-gray-100 transition-colors">
-              <div className={`w-5 flex flex-col gap-1.5 transition-all ${menuOpen ? "gap-0" : ""}`}>
-                <span className={`block h-0.5 bg-gray-700 rounded transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-0.5" : ""}`} />
-                <span className={`block h-0.5 bg-gray-700 rounded transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
-                <span className={`block h-0.5 bg-gray-700 rounded transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
-              </div>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                {menuOpen
+                  ? <><path d="M18 6 6 18" strokeLinecap="round" /><path d="m6 6 12 12" strokeLinecap="round" /></>
+                  : <><path d="M4 6h16" strokeLinecap="round" /><path d="M4 12h16" strokeLinecap="round" /><path d="M4 18h16" strokeLinecap="round" /></>
+                }
+              </svg>
             </button>
           </div>
         </div>
@@ -127,22 +143,21 @@ export default function Navbar() {
         {menuOpen && (
           <div className="md:hidden border-t border-gray-100 bg-white px-4 py-4 space-y-1">
             <NavLink to="/" end className="block px-3 py-2.5 rounded-xl text-sm font-medium text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors" onClick={() => setMenuOpen(false)}>Home</NavLink>
+            <NavLink to="/build" className="block px-3 py-2.5 rounded-xl text-sm font-medium text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors" onClick={() => setMenuOpen(false)}>Build Resume</NavLink>
+            <NavLink to="/analyze" className="block px-3 py-2.5 rounded-xl text-sm font-medium text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors" onClick={() => setMenuOpen(false)}>Analyze Resume</NavLink>
             {isAuthenticated && (
-              <>
-                <NavLink to="/dashboard" className="block px-3 py-2.5 rounded-xl text-sm font-medium text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors" onClick={() => setMenuOpen(false)}>Dashboard</NavLink>
-                <NavLink to="/build" className="block px-3 py-2.5 rounded-xl text-sm font-medium text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors" onClick={() => setMenuOpen(false)}>Build Resume</NavLink>
-                <NavLink to="/analyze" className="block px-3 py-2.5 rounded-xl text-sm font-medium text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors" onClick={() => setMenuOpen(false)}>Analyze</NavLink>
-              </>
+              <NavLink to="/dashboard" className="block px-3 py-2.5 rounded-xl text-sm font-medium text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors" onClick={() => setMenuOpen(false)}>Dashboard</NavLink>
             )}
             <div className="pt-3 border-t border-gray-100">
               {isAuthenticated ? (
-                <div className="space-y-2">
+                <div className="space-y-1">
                   <div className="flex items-center gap-2 px-3 py-2">
                     <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-400 to-violet-500 flex items-center justify-center text-white text-sm font-bold">
                       {user?.name?.charAt(0).toUpperCase()}
                     </div>
                     <span className="text-sm font-medium text-gray-700">{user?.name}</span>
                   </div>
+                  <Link to="/pricing" className="block px-3 py-2.5 rounded-xl text-sm font-medium text-indigo-600 hover:bg-indigo-50 transition-colors" onClick={() => setMenuOpen(false)}>⭐ Upgrade Plan</Link>
                   <button onClick={handleLogout} className="w-full text-left px-3 py-2.5 rounded-xl text-sm font-medium text-red-500 hover:bg-red-50 transition-colors">Sign out</button>
                 </div>
               ) : (

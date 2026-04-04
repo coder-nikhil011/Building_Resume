@@ -1,188 +1,225 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Logo = () => (
-  <div className="flex items-center gap-2.5">
-    <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-900/30">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    </div>
-    <span className="font-bold text-white text-lg tracking-tight">
-      Resume<span className="text-indigo-400">Craft</span>
-    </span>
-  </div>
-);
-
 const footerLinks = {
-  Product: [
+  Products: [
     { label: "Build Resume", to: "/build" },
     { label: "Analyze Resume", to: "/analyze" },
     { label: "Templates", to: "/build" },
+    { label: "AI Review", to: "/analyze" },
     { label: "Dashboard", to: "/dashboard" },
   ],
-  Company: [
-    { label: "About Us", to: "/" },
-    { label: "Careers", to: "/" },
-    { label: "Blog", to: "/" },
-    { label: "Press", to: "/" },
+  Templates: [
+    { label: "Classic Resume", to: "/build" },
+    { label: "Modern Resume", to: "/build" },
+    { label: "ATS Resume", to: "/build" },
+    { label: "Creative Resume", to: "/build" },
+    { label: "Fresher Resume", to: "/build" },
   ],
-  Support: [
-    { label: "Help Center", to: "/" },
+  Company: [
+    { label: "About", to: "/" },
     { label: "Contact Us", to: "/" },
-    { label: "Privacy Policy", to: "/" },
+    { label: "What We Do", to: "/" },
+    { label: "Careers", to: "/" },
+  ],
+  Other: [
+    { label: "Pricing", to: "/pricing" },
+    { label: "Privacy & Policies", to: "/" },
     { label: "Terms of Service", to: "/" },
+    { label: "Help Center", to: "/" },
   ],
 };
 
 const socials = [
-  {
-    label: "Twitter",
-    href: "#",
-    icon: <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />,
-  },
-  {
-    label: "LinkedIn",
-    href: "#",
-    icon: <><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></>,
-  },
-  {
-    label: "GitHub",
-    href: "#",
-    icon: <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />,
-  },
-  {
-    label: "Instagram",
-    href: "#",
-    icon: <><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></>,
-  },
+  { label: "Facebook", href: "#", icon: <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /> },
+  { label: "Instagram", href: "#", icon: <><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></> },
+  { label: "X", href: "#", icon: <path d="M4 4l16 16M4 20L20 4" strokeLinecap="round" /> },
+  { label: "LinkedIn", href: "#", icon: <><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect x="2" y="9" width="4" height="12" /><circle cx="4" cy="4" r="2" /></> },
+  { label: "YouTube", href: "#", icon: <><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" /><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" /></> },
 ];
 
 export default function Footer() {
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
-
-  const handleSubscribe = (e) => {
-    e.preventDefault();
-    if (email) { setSubscribed(true); setEmail(""); }
-  };
+  const [bannerVisible, setBannerVisible] = useState(true);
 
   return (
-    <footer className="bg-gray-950 text-white relative overflow-hidden">
-      {/* Top decorative gradient */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-60" />
+    <>
+      <footer style={{ background: "#111827", color: "#fff", fontFamily: "Arial, sans-serif" }}>
 
-      {/* Background pattern */}
-      <div className="absolute inset-0 opacity-[0.03]" style={{
-        backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-        backgroundSize: "32px 32px"
-      }} />
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        {/* Top CTA banner */}
-        <div className="py-12 border-b border-white/10">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-            <div>
-              <h2 className="text-3xl font-bold text-white">
-                Ready to land your{" "}
-                <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">
-                  dream job?
-                </span>
-              </h2>
-              <p className="text-gray-400 mt-2 text-sm">Join 10,000+ professionals who built their careers with ResumeCraft.</p>
+        {/* ── Row 1: Logo + Socials ── */}
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "32px 32px 0", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "16px" }}>
+          <Link to="/" style={{ display: "flex", alignItems: "center", gap: "10px", textDecoration: "none" }}>
+            <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: "linear-gradient(135deg, #6366f1, #8b5cf6)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
             </div>
-            <div className="flex items-center gap-3 flex-shrink-0">
-              <Link to="/register" className="px-6 py-3 bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-semibold rounded-xl hover:opacity-90 transition-all hover:-translate-y-0.5 shadow-lg shadow-indigo-900/40 text-sm">
-                Start for free
-              </Link>
-              <Link to="/build" className="px-6 py-3 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/15 transition-all text-sm border border-white/10">
-                View templates
-              </Link>
-            </div>
+            <span style={{ fontWeight: "700", fontSize: "18px", color: "#fff", letterSpacing: "-0.3px" }}>
+              resume<span style={{ color: "#818cf8" }}>craft</span>
+            </span>
+          </Link>
+
+          <div style={{ display: "flex", gap: "12px" }}>
+            {socials.map(({ label, href, icon }) => (
+              <a key={label} href={href} aria-label={label}
+                style={{ width: "40px", height: "40px", borderRadius: "50%", border: "1.5px solid rgba(255,255,255,0.15)", display: "flex", alignItems: "center", justifyContent: "center", textDecoration: "none", background: "rgba(255,255,255,0.05)", transition: "all 0.2s" }}
+                onMouseEnter={e => { e.currentTarget.style.background = "#6366f1"; e.currentTarget.style.borderColor = "#6366f1"; }}
+                onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.05)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)"; }}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">{icon}</svg>
+              </a>
+            ))}
           </div>
         </div>
 
-        {/* Main footer content */}
-        <div className="py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+        {/* Divider */}
+        <div style={{ maxWidth: "1280px", margin: "20px auto 0", padding: "0 32px" }}>
+          <div style={{ height: "1px", background: "rgba(255,255,255,0.08)" }} />
+        </div>
 
-          {/* Brand column */}
-          <div className="lg:col-span-2">
-            <Logo />
-            <p className="mt-4 text-sm text-gray-400 leading-relaxed max-w-xs">
-              Build professional, ATS-optimized resumes in minutes. 32+ templates, AI-powered suggestions, and instant PDF download.
-            </p>
+        {/* ── Row 2: QR + Link Columns ── */}
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "36px 32px 40px", display: "flex", flexWrap: "wrap", gap: "48px", alignItems: "flex-start" }}>
 
-            {/* Newsletter */}
-            <div className="mt-6">
-              <p className="text-xs font-semibold text-gray-300 uppercase tracking-wider mb-3">Stay updated</p>
-              {subscribed ? (
-                <div className="flex items-center gap-2 text-green-400 text-sm">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 6 9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                  Thanks! You're subscribed.
-                </div>
-              ) : (
-                <form onSubmit={handleSubscribe} className="flex gap-2">
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email"
-                    className="flex-1 bg-white/10 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-500 outline-none focus:border-indigo-500 focus:bg-white/15 transition-all"
-                  />
-                  <button type="submit" className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 rounded-xl transition-colors">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                  </button>
-                </form>
-              )}
-            </div>
-
-            {/* Socials */}
-            <div className="flex items-center gap-3 mt-6">
-              {socials.map(({ label, href, icon }) => (
-                <a key={label} href={href} aria-label={label} className="w-9 h-9 rounded-xl bg-white/10 hover:bg-indigo-600 border border-white/10 hover:border-indigo-500 flex items-center justify-center transition-all duration-200 hover:-translate-y-0.5">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    {icon}
-                  </svg>
+          {/* QR + App Store */}
+          <div style={{ flexShrink: 0 }}>
+            <div style={{ border: "1.5px solid rgba(255,255,255,0.1)", borderRadius: "12px", padding: "16px", display: "flex", gap: "14px", alignItems: "center", background: "rgba(255,255,255,0.03)" }}>
+              {/* QR */}
+              <div style={{ width: "80px", height: "80px", background: "#fff", borderRadius: "6px", padding: "5px", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <svg viewBox="0 0 100 100" width="70" height="70" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="100" height="100" fill="white" />
+                  <rect x="5" y="5" width="30" height="30" fill="none" stroke="#111827" strokeWidth="5" />
+                  <rect x="15" y="15" width="10" height="10" fill="#111827" />
+                  <rect x="65" y="5" width="30" height="30" fill="none" stroke="#111827" strokeWidth="5" />
+                  <rect x="75" y="15" width="10" height="10" fill="#111827" />
+                  <rect x="5" y="65" width="30" height="30" fill="none" stroke="#111827" strokeWidth="5" />
+                  <rect x="15" y="75" width="10" height="10" fill="#111827" />
+                  <rect x="45" y="5" width="8" height="8" fill="#111827" />
+                  <rect x="55" y="5" width="8" height="8" fill="#111827" />
+                  <rect x="45" y="15" width="8" height="8" fill="#111827" />
+                  <rect x="55" y="25" width="8" height="8" fill="#111827" />
+                  <rect x="45" y="45" width="8" height="8" fill="#111827" />
+                  <rect x="55" y="55" width="8" height="8" fill="#111827" />
+                  <rect x="65" y="45" width="8" height="8" fill="#111827" />
+                  <rect x="75" y="55" width="8" height="8" fill="#111827" />
+                  <rect x="85" y="45" width="8" height="8" fill="#111827" />
+                  <rect x="45" y="65" width="8" height="8" fill="#111827" />
+                  <rect x="55" y="75" width="8" height="8" fill="#111827" />
+                  <rect x="65" y="85" width="8" height="8" fill="#111827" />
+                  <rect x="85" y="75" width="8" height="8" fill="#111827" />
+                  <rect x="85" y="85" width="8" height="8" fill="#111827" />
+                </svg>
+              </div>
+              {/* Buttons */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                <a href="#" style={{ display: "flex", alignItems: "center", gap: "8px", background: "#000", borderRadius: "8px", padding: "7px 14px", textDecoration: "none", border: "1px solid rgba(255,255,255,0.12)", minWidth: "140px" }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" /></svg>
+                  <div>
+                    <div style={{ fontSize: "8px", color: "#aaa", lineHeight: 1 }}>Download on the</div>
+                    <div style={{ fontSize: "13px", fontWeight: "600", color: "#fff", lineHeight: 1.4 }}>App Store</div>
+                  </div>
                 </a>
-              ))}
+                <a href="#" style={{ display: "flex", alignItems: "center", gap: "8px", background: "#000", borderRadius: "8px", padding: "7px 14px", textDecoration: "none", border: "1px solid rgba(255,255,255,0.12)", minWidth: "140px" }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24"><path d="M3.18 23.76c.3.17.64.24.99.2L15.34 12 3.18.04a1.3 1.3 0 0 0-.99.2C1.83.56 1.5 1.05 1.5 1.66v20.68c0 .61.33 1.1.68 1.42z" fill="#EA4335" /><path d="M19.35 8.04L16.2 6.2 12.8 12l3.4 5.8 3.16-1.84A2.37 2.37 0 0 0 20.5 12a2.37 2.37 0 0 0-1.15-3.96z" fill="#FBBC04" /><path d="M3.18.04L16.2 6.2 12.8 12 3.18 23.96a1.3 1.3 0 0 1-.99-.2C1.83 23.44 1.5 22.95 1.5 22.34V1.66C1.5 1.05 1.83.56 2.19.24c.29-.2.65-.27.99-.2z" fill="#34A853" /><path d="M3.18.04l13.02 6.16L12.8 12 3.18 23.96C2.83 23.76 1.5 22.95 1.5 22.34V1.66C1.5 1.05 1.83.56 2.19.24L3.18.04z" fill="#4285F4" /></svg>
+                  <div>
+                    <div style={{ fontSize: "8px", color: "#aaa", lineHeight: 1 }}>GET IT ON</div>
+                    <div style={{ fontSize: "13px", fontWeight: "600", color: "#fff", lineHeight: 1.4 }}>Google Play</div>
+                  </div>
+                </a>
+              </div>
             </div>
           </div>
 
-          {/* Links columns */}
-          {Object.entries(footerLinks).map(([category, links]) => (
-            <div key={category}>
-              <p className="text-xs font-semibold text-gray-300 uppercase tracking-wider mb-4">{category}</p>
-              <ul className="space-y-3">
-                {links.map(({ label, to }) => (
-                  <li key={label}>
-                    <Link to={to} className="text-sm text-gray-400 hover:text-white transition-colors hover:translate-x-0.5 inline-block">
-                      {label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {/* 4 link columns */}
+          <div style={{ flex: 1, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: "32px" }}>
+            {Object.entries(footerLinks).map(([category, links]) => (
+              <div key={category}>
+                <p style={{ fontSize: "14px", fontWeight: "700", color: "#fff", marginBottom: "16px", marginTop: 0 }}>{category}</p>
+                <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "10px" }}>
+                  {links.map(({ label, to }) => (
+                    <li key={label}>
+                      <Link to={to}
+                        style={{ fontSize: "13px", color: "#6b7280", textDecoration: "none", transition: "color 0.2s" }}
+                        onMouseEnter={e => e.currentTarget.style.color = "#fff"}
+                        onMouseLeave={e => e.currentTarget.style.color = "#6b7280"}
+                      >{label}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="py-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-gray-500">
-            © {new Date().getFullYear()} ResumeCraft. All rights reserved.
+        {/* Divider */}
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 32px" }}>
+          <div style={{ height: "1px", background: "rgba(255,255,255,0.08)" }} />
+        </div>
+
+        {/* ── Bottom bar ── */}
+        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "18px 32px", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "10px" }}>
+          <p style={{ fontSize: "13px", color: "#4b5563", margin: 0 }}>
+            ResumeCraft Pvt. Ltd. © 2025 – {new Date().getFullYear()}
           </p>
-          <div className="flex items-center gap-6">
-            <Link to="/" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">Privacy</Link>
-            <Link to="/" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">Terms</Link>
-            <Link to="/" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">Sitemap</Link>
-            <div className="flex items-center gap-1.5 text-xs text-gray-500">
-              <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-              All systems operational
-            </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <Link to="/" style={{ fontSize: "13px", color: "#4b5563", textDecoration: "none", transition: "color 0.2s" }}
+              onMouseEnter={e => e.currentTarget.style.color = "#fff"}
+              onMouseLeave={e => e.currentTarget.style.color = "#4b5563"}
+            >Legal Terms</Link>
+            <span style={{ color: "#374151" }}>·</span>
+            <Link to="/" style={{ fontSize: "13px", color: "#4b5563", textDecoration: "none", transition: "color 0.2s" }}
+              onMouseEnter={e => e.currentTarget.style.color = "#fff"}
+              onMouseLeave={e => e.currentTarget.style.color = "#4b5563"}
+            >Privacy & Policies</Link>
           </div>
         </div>
-      </div>
-    </footer>
+      </footer>
+
+      {/* ── Sticky bottom banner ── */}
+      {bannerVisible && (
+        <div style={{
+          position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 9999,
+          background: "#1e1b4b",
+          borderTop: "1px solid rgba(255,255,255,0.08)",
+          display: "flex", alignItems: "center", justifyContent: "space-between",
+          padding: "12px 28px", gap: "16px", flexWrap: "wrap",
+        }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", flex: 1 }}>
+            <div style={{ width: "26px", height: "26px", borderRadius: "50%", border: "2px solid rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              </svg>
+            </div>
+            <p style={{ fontSize: "13px", color: "#c7d2fe", margin: 0 }}>
+              Our AI-powered platform builds job-winning resumes with smart templates and instant feedback.
+            </p>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", flexShrink: 0 }}>
+            <Link to="/register" style={{
+              display: "flex", alignItems: "center", gap: "7px",
+              background: "#6366f1", color: "#fff", fontSize: "13px", fontWeight: "600",
+              padding: "8px 18px", borderRadius: "8px", textDecoration: "none",
+            }}
+              onMouseEnter={e => e.currentTarget.style.opacity = "0.85"}
+              onMouseLeave={e => e.currentTarget.style.opacity = "1"}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" strokeLinecap="round" />
+                <path d="M14 2v6h6" strokeLinecap="round" />
+              </svg>
+              Build smarter
+            </Link>
+            <button onClick={() => setBannerVisible(false)}
+              style={{ background: "none", border: "none", cursor: "pointer", color: "#4b5563", padding: "4px", display: "flex" }}
+              onMouseEnter={e => e.currentTarget.style.color = "#9ca3af"}
+              onMouseLeave={e => e.currentTarget.style.color = "#4b5563"}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M18 6 6 18M6 6l12 12" strokeLinecap="round" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "./context/AuthContext";
 
 import Home from "./pages/Home";
@@ -8,7 +8,9 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import BuildResume from "./pages/BuildResume";
 import AnalyzeResume from "./pages/AnalyzeResume";
+import Pricing from "./pages/Pricing";
 import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
@@ -26,19 +28,44 @@ const GuestRoute = ({ children }) => {
   return !isAuthenticated ? children : <Navigate to="/dashboard" replace />;
 };
 
+const Layout = ({ children }) => {
+  const location = useLocation();
+  // No navbar/footer on auth pages
+  const noNavbar = ["/login", "/register"].some(p => location.pathname.startsWith(p));
+  // No footer on builder page
+  const noFooter = ["/build", "/login", "/register"].some(p => location.pathname.startsWith(p));
+
+  return (
+    <>
+      {!noNavbar && <Navbar />}
+      <main>{children}</main>
+      {!noFooter && <Footer />}
+    </>
+  );
+};
+
 export default function App() {
   return (
     <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<GuestRoute><Login /></GuestRoute>} />
-        <Route path="/register" element={<GuestRoute><Register /></GuestRoute>} />
-        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-        <Route path="/build" element={<ProtectedRoute><BuildResume /></ProtectedRoute>} />
-        <Route path="/analyze" element={<ProtectedRoute><AnalyzeResume /></ProtectedRoute>} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      <Layout>
+        <Routes>
+          {/* Public */}
+          <Route path="/" element={<Home />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/build" element={<BuildResume />} />
+          <Route path="/analyze" element={<AnalyzeResume />} />
+
+          {/* Auth */}
+          <Route path="/login" element={<GuestRoute><Login /></GuestRoute>} />
+          <Route path="/register" element={<GuestRoute><Register /></GuestRoute>} />
+
+          {/* Protected */}
+          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+
+          {/* Fallback */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Layout>
     </BrowserRouter>
   );
 }
