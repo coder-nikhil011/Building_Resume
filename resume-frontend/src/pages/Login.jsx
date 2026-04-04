@@ -54,13 +54,11 @@ export default function Login() {
     <div className="min-h-screen flex bg-gray-50">
       {/* Left panel */}
       <div className="hidden lg:flex lg:w-[52%] relative overflow-hidden">
-        {/* Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-indigo-800 to-violet-900" />
         <div className="absolute inset-0 opacity-20" style={{
           backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)`,
           backgroundSize: "28px 28px"
         }} />
-        {/* Decorative blobs */}
         <div className="absolute top-1/4 -left-20 w-72 h-72 bg-violet-500/30 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 -right-10 w-56 h-56 bg-indigo-400/20 rounded-full blur-3xl" />
 
@@ -92,7 +90,7 @@ export default function Login() {
               Create stunning, ATS-optimized resumes in minutes with professional templates and AI-powered feedback.
             </p>
 
-            {/* Features */}
+            {/* Features grid */}
             <div className="grid grid-cols-2 gap-3">
               {features.map(({ icon, text }) => (
                 <div key={text} className="flex items-center gap-3 bg-white/10 backdrop-blur border border-white/10 rounded-xl p-3 hover:bg-white/15 transition-colors">
@@ -103,22 +101,7 @@ export default function Login() {
             </div>
           </div>
 
-          {/* Testimonial */}
-          <div className="bg-white/10 backdrop-blur border border-white/15 rounded-2xl p-5">
-            <div className="flex gap-1 mb-3">
-              {[1,2,3,4,5].map(i => <span key={i} className="text-yellow-400 text-sm">★</span>)}
-            </div>
-            <p className="text-white/80 text-sm leading-relaxed italic">
-              "Got 3 interview calls within a week of updating my resume with ResumeCraft. The templates are stunning!"
-            </p>
-            <div className="flex items-center gap-2 mt-3">
-              <div className="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-400 to-violet-500 flex items-center justify-center text-white text-xs font-bold">R</div>
-              <div>
-                <p className="text-white text-xs font-semibold">Rahul Sharma</p>
-                <p className="text-white/50 text-xs">Software Engineer</p>
-              </div>
-            </div>
-          </div>
+          <p className="text-indigo-400 text-xs">© {new Date().getFullYear()} ResumeCraft. All rights reserved.</p>
         </div>
       </div>
 
@@ -131,7 +114,6 @@ export default function Login() {
               <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="white" strokeWidth="2" strokeLinecap="round" />
-                  <path d="M14 2v6h6M16 13H8M16 17H8" stroke="white" strokeWidth="2" strokeLinecap="round" />
                 </svg>
               </div>
               <span className="font-bold text-gray-900 text-lg">Resume<span className="text-indigo-600">Craft</span></span>
@@ -164,7 +146,7 @@ export default function Login() {
                   className={`w-full pl-10 pr-4 py-3 border rounded-xl text-sm outline-none transition-all bg-white focus:ring-2 focus:ring-indigo-100 ${errors.email ? "border-red-400 bg-red-50" : "border-gray-200 focus:border-indigo-500"}`}
                 />
               </div>
-              {errors.email && <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1"><span>⚠</span>{errors.email}</p>}
+              {errors.email && <p className="text-red-500 text-xs mt-1.5">⚠ {errors.email}</p>}
             </div>
 
             <div>
@@ -190,11 +172,11 @@ export default function Login() {
                   </svg>
                 </button>
               </div>
-              {errors.password && <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1"><span>⚠</span>{errors.password}</p>}
+              {errors.password && <p className="text-red-500 text-xs mt-1.5">⚠ {errors.password}</p>}
             </div>
 
             <div className="flex items-center gap-2">
-              <input type="checkbox" id="remember" className="w-4 h-4 rounded border-gray-300 text-indigo-600 accent-indigo-600" />
+              <input type="checkbox" id="remember" className="w-4 h-4 rounded border-gray-300 accent-indigo-600" />
               <label htmlFor="remember" className="text-sm text-gray-600 cursor-pointer select-none">Remember me for 30 days</label>
             </div>
 
