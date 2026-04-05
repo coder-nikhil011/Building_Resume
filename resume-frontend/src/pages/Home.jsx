@@ -160,23 +160,10 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 px-4 bg-indigo-600">
-        <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">Ready to build your resume?</h2>
-          <p className="text-indigo-200 mb-8 text-sm">Join thousands of job seekers who landed their dream job with ResumeCraft.</p>
-          <Link
-            to={isAuthenticated ? "/build" : "/register"}
-            className="bg-white text-indigo-600 font-semibold px-8 py-3 rounded-xl hover:bg-indigo-50 transition-colors text-sm"
-          >
-            {isAuthenticated ? "Go to builder" : "Start for free"}
-          </Link>
-        </div>
-      </section>
+      
 
       {/* Footer */}
-      <footer className="py-8 px-4 border-t border-gray-100 text-center">
-        <p className="text-gray-400 text-xs">© 2025 ResumeCraft. All rights reserved.</p>
-      </footer>
+      
     </div>
   );
 }
