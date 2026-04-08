@@ -4,8 +4,19 @@ const { connectDB } = require("./src/config/db");
 const PORT = 5000;
 
 const startServer = async () => {
-  // Connect to MySQL first
-  await connectDB();
+  try {
+    // Connect DB
+    await connectDB();
+    console.log("✅ Database connected");
+
+    // 🔥 START SERVER (this was missing)
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on http://127.0.0.1:${PORT}`);
+    });
+
+  } catch (error) {
+    console.error("❌ Server failed to start:", error);
+  }
 };
 
 startServer();
