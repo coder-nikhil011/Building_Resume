@@ -45,7 +45,7 @@ const register = async (req, res) => {
 
     // Fetch created user
     const [rows] = await pool.query(
-      "SELECT id, name, email, plan, avatar, created_at FROM users WHERE id = ?",
+      "SELECT id, name, email FROM users WHERE id = ?",
       [userId]
     );
 
@@ -59,8 +59,8 @@ const register = async (req, res) => {
         id: user.id,
         name: user.name,
         email: user.email,
-        plan: user.plan,
-        avatar: user.avatar,
+        //plan: user.plan,
+        //avatar: user.avatar,
       },
     });
   } catch (err) {
