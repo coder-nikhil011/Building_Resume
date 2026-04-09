@@ -97,13 +97,13 @@ const login = async (req, res) => {
     }
 
     // Check plan expiry
-    let currentPlan = user.plan;
+    /*let currentPlan = user.plan;
     if (currentPlan !== "free" && user.plan_expires_at) {
       if (new Date(user.plan_expires_at) < new Date()) {
         await pool.query("UPDATE users SET plan = 'free', plan_expires_at = NULL WHERE id = ?", [user.id]);
         currentPlan = "free";
       }
-    }
+    }*/
 
     const token = generateToken(user.id);
 
