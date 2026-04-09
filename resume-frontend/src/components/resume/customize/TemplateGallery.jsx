@@ -228,7 +228,8 @@ function SectionHeader({ plan, count }) {
 }
 
 // ── Main component ──────────────────────────────────────
-export default function TemplateGallery() {
+export default function TemplateGallery({ onSelectTemplate }) {
+
   const { activeTemplate, setActiveTemplate } = useResume();
   const { isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
@@ -249,23 +250,42 @@ export default function TemplateGallery() {
     setTimeout(() => setToast(null), 2500);
   };
 
+  // 🔥 MAIN FIX HERE
   const handleSelect = (id) => {
     const plan = getPlan(id);
 
     if (plan === "free" && !isAuthenticated) {
       showToast("Sign in to use this template", "login");
-      setTimeout(() => navigate("/login"), 1200);
       return;
     }
     if (plan === "premium") {
-      if (!isAuthenticated) { showToast("Sign in to access Pro templates", "login"); setTimeout(() => navigate("/login"), 1200); return; }
-      if (userPlan !== "premium" && userPlan !== "elite") { showToast("Upgrade to Pro to use this template", "upgrade"); setTimeout(() => navigate("/pricing"), 1200); return; }
+      if (!isAuthenticated) {
+        showToast("Sign in to access Pro templates", "login");
+        return;
+      }
+      if (userPlan !== "premium" && userPlan !== "elite") {
+        showToast("Upgrade to Pro to use this template", "upgrade");
+        return;
+      }
     }
     if (plan === "elite") {
-      if (!isAuthenticated) { showToast("Sign in to access Elite templates", "login"); setTimeout(() => navigate("/login"), 1200); return; }
-      if (userPlan !== "elite") { showToast("Upgrade to Elite to use this template", "upgrade"); setTimeout(() => navigate("/pricing"), 1200); return; }
+      if (!isAuthenticated) {
+        showToast("Sign in to access Elite templates", "login");
+        return;
+      }
+      if (userPlan !== "elite") {
+        showToast("Upgrade to Elite to use this template", "upgrade");
+        return;
+      }
     }
+
+    // ✅ KEEP THIS
     setActiveTemplate(id);
+
+    // 🔥 ADD THIS (IMPORTANT)
+    if (onSelectTemplate) {
+      onSelectTemplate(id);
+    }
   };
 
   const freeTemplates    = ALL_TEMPLATES.filter(t => getPlan(t.id) === "free");

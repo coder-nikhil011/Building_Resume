@@ -1,13 +1,14 @@
-// src/pages/BuildResume.jsx
 import React, { useState } from "react";
 import ResumeBuilder from "../components/resume/builder/ResumeBuilder";
 import TemplateGallery from "../components/resume/customize/TemplateGallery";
 
 export default function BuildResume() {
+
+  // 🔥 STEP CONTROL
   const [step, setStep] = useState("template"); // template | builder
   const [showModal, setShowModal] = useState(false);
 
-  // 🔥 TEMPLATE SELECT
+  // 🔥 TEMPLATE CLICK
   const handleTemplateSelect = () => {
     setShowModal(true);
   };
@@ -19,6 +20,12 @@ export default function BuildResume() {
     if (type === "manual") {
       setStep("builder");
     }
+
+    // future ready (optional)
+    if (type === "ai") console.log("AI clicked");
+    if (type === "upload") console.log("Upload clicked");
+    if (type === "linkedin") console.log("LinkedIn clicked");
+    if (type === "example") console.log("Example clicked");
   };
 
   return (
@@ -27,7 +34,7 @@ export default function BuildResume() {
       {/* STEP 1 → TEMPLATE */}
       {step === "template" && (
         <>
-          {/* 🔥 SKIP BUTTON */}
+          {/* SKIP BUTTON */}
           <div style={{ textAlign: "right", marginBottom: "10px" }}>
             <button onClick={() => setShowModal(true)}>Skip</button>
           </div>
@@ -43,7 +50,11 @@ export default function BuildResume() {
       {showModal && (
         <div style={overlay}>
           <div style={modal}>
-            <button onClick={() => setShowModal(false)} style={closeBtn}>✕</button>
+
+            {/* CLOSE */}
+            <button onClick={() => setShowModal(false)} style={closeBtn}>
+              ✕
+            </button>
 
             <h2>Let’s get started</h2>
             <p style={{ color: "#6b7280" }}>
@@ -58,11 +69,13 @@ export default function BuildResume() {
           </div>
         </div>
       )}
+
     </div>
   );
 }
 
-/* UI (no style change impact) */
+/* ---------- UI ---------- */
+
 function Option({ text, onClick }) {
   return (
     <div onClick={onClick} style={option}>

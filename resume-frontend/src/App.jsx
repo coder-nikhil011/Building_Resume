@@ -11,6 +11,7 @@ import AnalyzeResume from "./pages/AnalyzeResume";
 import Pricing from "./pages/Pricing";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
+import TemplateSelect from "./pages/TemplateSelect";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
@@ -54,6 +55,7 @@ export default function App() {
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/build" element={<BuildResume />} />
           <Route path="/analyze" element={<AnalyzeResume />} />
+          <Route path="/template" element={<TemplateSelect />} />
 
           {/* Auth */}
           <Route path="/login" element={<GuestRoute><Login /></GuestRoute>} />
