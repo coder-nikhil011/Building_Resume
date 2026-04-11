@@ -1,6 +1,6 @@
 ﻿# Resume Builder
 📝 Resume Builder
-Build Your Professional Resume in Minutes!
+Build Your Professional Resume in Minutes! With Help of AI
 
 A modern, feature-rich web application that helps you create professional resumes quickly and easily. Built with vanilla HTML, CSS, and JavaScript - no dependencies required!
 
